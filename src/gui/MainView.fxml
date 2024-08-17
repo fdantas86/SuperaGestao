@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+   <content>
+      <VBox prefHeight="375.0" prefWidth="569.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Cadastro">
+                  <items>
+                        <MenuItem fx:id="menuItemCadLinha" mnemonicParsing="false" onAction="#onMenuItemCadLinhaAction" text="Linha" />
+                    <MenuItem fx:id="menuItemCadProduto" mnemonicParsing="false" onAction="#onMenuItemCadProdutoAction" text="Produto" />
+                        <MenuItem fx:id="menuItemCadSetor" mnemonicParsing="false" onAction="#onMenuItemCadSetorAction" text="Setor" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Vendas">
+                  <items>
+                    <MenuItem fx:id="menuItemCnsVendas" mnemonicParsing="false" onAction="#onMenuItemCnsVendasAction" text="Consultar Vendas" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Sobre">
+                  <items>
+                    <MenuItem fx:id="menuItemCnsVersao" mnemonicParsing="false" onAction="#onMenuItemVersaoAction" text="Versão" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
