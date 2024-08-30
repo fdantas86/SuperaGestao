@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
@@ -45,7 +46,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemCadLinhaAction() {
-		System.out.println("Cadastrar Linha!");
+		loadView("/gui/LinhaProduto.fxml");
 	}
 	
 	@FXML
@@ -78,7 +79,8 @@ public class MainViewController implements Initializable {
 			
 			
 		} catch (IOException e) {
-			Alerts.showAlert("IO Exception", "Erro ao Carregar a página", e.getMessage(), AlertType.ERROR);
+			e.printStackTrace();
+			//Alerts.showAlert("IO Exception", "Erro ao Carregar a página", e.getMessage(), AlertType.ERROR);
 		}
 		
 		

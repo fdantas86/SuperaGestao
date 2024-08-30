@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="402.0" prefWidth="466.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LinhaProdutoController">
+   <children>
+      <Label text="LINHAS DE PRODUTOS">
+         <VBox.margin>
+            <Insets left="10.0" top="5.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Book Antiqua" size="14.0" />
+         </font>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="btnCadastrar" mnemonicParsing="false" onAction="#onBtnCadastrarAction" text="Cadastrar" />
+            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#onBtnEditarAction" text="Editar" />
+            <Button fx:id="btnExcluir" mnemonicParsing="false" onAction="#onBtnExcluirAction" text="Excluir" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewLinhaProduto" prefHeight="338.0" prefWidth="466.0">
+        <columns>
+          <TableColumn fx:id="tableColumnIdlinha" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="tableColumnLinha" prefWidth="75.0" text="LINHA" />
+            <TableColumn fx:id="tableColumnDescLinha" prefWidth="153.0" text="DESCRIÇÃO LINHA" />
+            <TableColumn fx:id="tableColumnIdSetor" minWidth="0.0" prefWidth="162.0" text="SETOR" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
