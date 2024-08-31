@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import javafx.fxml.FXML;
@@ -44,7 +45,10 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemCadLinhaAction() {
-		loadView("/gui/LinhaProduto.fxml");
+		loadView("/gui/LinhaProduto.fxml", (LinhaProdutoController controller)->{
+			controller.setLinhaProdutoService(new LinhaProdutoService());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML
@@ -54,7 +58,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemVersaoAction() {
-		loadView("/gui/Sobre.fxml");
+		loadView("/gui/Sobre.fxml", x ->{});
 	}
 	
 	@Override
@@ -62,7 +66,7 @@ public class MainViewController implements Initializable {
 				
 	}
 	
-	private synchronized void loadView(String absoluteName) {
+	private synchronized <T>void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			VBox newVBox = loader.load();
@@ -74,9 +78,8 @@ public class MainViewController implements Initializable {
 			mainVBox.getChildren().add(mainMenu);
 			mainVBox.getChildren().addAll(newVBox.getChildren());
 			
-			LinhaProdutoController controller = loader.getController();
-			controller.setLinhaProdutoService(new LinhaProdutoService());
-			controller.updateTableView();
+			T controller = loader.getController();
+			initializingAction.accept(controller);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
