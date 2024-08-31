@@ -7,57 +7,57 @@ public class LinhaProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id_linha;
-	private Integer id_setor;
+	private Integer idLinha;
+	private Integer idSetor;
 	private String linha;
-	private String desc_linha;
+	private String descLinha;
 	
-	public LinhaProduto () {
+	public LinhaProduto() {
 		
 	}
 
-	public LinhaProduto(Integer id_linha, Integer id_setor, String linha, String desc_linha) {
-		this.id_linha = id_linha;
-		this.id_setor = id_setor;
+	public LinhaProduto(Integer idLinha, Integer idSetor, String linha, String descLinha) {
+		this.idLinha = idLinha;
+		this.idSetor = idSetor;
 		this.linha = linha;
-		this.desc_linha = desc_linha;
+		this.descLinha = descLinha;
 	}
 
-	public Integer getid_linha() {
-		return id_linha;
+	public Integer getIdLinha() {
+		return idLinha;
 	}
 
-	public void setid_linha(Integer id_linha) {
-		this.id_linha = id_linha;
+	public void setIdLinha(Integer idLinha) {
+		this.idLinha = idLinha;
 	}
 
-	public Integer getid_setor() {
-		return id_setor;
+	public Integer getIdSetor() {
+		return idSetor;
 	}
 
-	public void setid_setor(Integer id_setor) {
-		this.id_setor = id_setor;
+	public void setIdSetor(Integer idSetor) {
+		this.idSetor = idSetor;
 	}
 
-	public String getlinha() {
+	public String getLinha() {
 		return linha;
 	}
 
-	public void setlinha(String linha) {
+	public void setLinha(String linha) {
 		this.linha = linha;
 	}
 
-	public String getdesc_linha() {
-		return desc_linha;
+	public String getDescLinha() {
+		return descLinha;
 	}
 
-	public void setdesc_linha(String desc_linha) {
-		this.desc_linha = desc_linha;
+	public void setDescLinha(String descLinha) {
+		this.descLinha = descLinha;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id_linha);
+		return Objects.hash(idLinha);
 	}
 
 	@Override
@@ -69,13 +69,16 @@ public class LinhaProduto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		LinhaProduto other = (LinhaProduto) obj;
-		return Objects.equals(id_linha, other.id_linha);
+		return Objects.equals(idLinha, other.idLinha);
 	}
 
 	@Override
 	public String toString() {
-		return "LinhaProduto [id_linha=" + id_linha + ", id_setor=" + id_setor + ", linha=" + linha + ", desc_linha="
-				+ desc_linha +"]";
+		return "LinhaProduto [idLinha=" + idLinha + ", idSetor=" + idSetor + ", linha=" + linha + ", descLinha="
+				+ descLinha + "]";
 	}
+	
+	
+	
 
 }

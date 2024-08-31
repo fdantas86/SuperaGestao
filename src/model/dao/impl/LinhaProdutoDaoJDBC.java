@@ -29,14 +29,14 @@ public class LinhaProdutoDaoJDBC implements LinhaProdutoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO linhaproduto "
-					+ "(id_setor, linha, desc_linha) "
+					+ "(idSetor, linha, descLinha) "
 					+ "VALUES "
 					+ "(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			
-			st.setInt(1, obj.getid_setor());
-			st.setString(2, obj.getlinha());
-			st.setString(3, obj.getdesc_linha());
+			st.setInt(1, obj.getIdSetor());
+			st.setString(2, obj.getLinha());
+			st.setString(3, obj.getDescLinha());
 			
 			int linhasAlteradas = st.executeUpdate();
 			
@@ -44,7 +44,7 @@ public class LinhaProdutoDaoJDBC implements LinhaProdutoDao {
 				ResultSet rs = st.getGeneratedKeys();
 				if(rs.next()) {
 					int id = rs.getInt(1);
-					obj.setid_linha(id);
+					obj.setIdLinha(id);
 				}
 				DB.closeResultSet(rs);
 			} else {
@@ -65,14 +65,14 @@ public class LinhaProdutoDaoJDBC implements LinhaProdutoDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE linhaproduto "
-					+ "SET id_setor=?, linha=? , desc_linha=? "
+					+ "SET idSetor=?, linha=? , descLinha=? "
 					+ "WHERE "
-					+ "id_linha = ?");
+					+ "idLinha = ?");
 			
-			st.setInt(1, obj.getid_setor());
-			st.setString(2, obj.getlinha());
-			st.setString(3, obj.getdesc_linha());
-			st.setInt(4, obj.getid_linha());
+			st.setInt(1, obj.getIdSetor());
+			st.setString(2, obj.getLinha());
+			st.setString(3, obj.getDescLinha());
+			st.setInt(4, obj.getIdLinha());
 			
 			st.executeUpdate();
 			
@@ -92,7 +92,7 @@ public class LinhaProdutoDaoJDBC implements LinhaProdutoDao {
 			st = conn.prepareStatement(
 					"DELETE FROM linhaproduto "
 					+ "WHERE "
-					+ "id_linha = ?");
+					+ "idLinha = ?");
 			
 			st.setInt(1, idLinha);
 			
@@ -115,8 +115,8 @@ public class LinhaProdutoDaoJDBC implements LinhaProdutoDao {
 			st = conn.prepareStatement(
 				"SELECT linhaproduto.*, setor.desc_setor "
 				+ "FROM linhaproduto INNER JOIN setor "
-				+ "ON linhaproduto.id_setor = setor.id_setor "
-				+ "WHERE linhaproduto.id_linha = ?");
+				+ "ON linhaproduto.idSetor = setor.idSetor "
+				+ "WHERE linhaproduto.idLinha = ?");
 				st.setInt(1,  id);
 				rs = st.executeQuery();
 				if (rs.next()) {
@@ -136,24 +136,23 @@ public class LinhaProdutoDaoJDBC implements LinhaProdutoDao {
 	}
 	
 	@Override
-	public List<LinhaProduto> findBySetor(Integer id_setor) {
+	public List<LinhaProduto> findBySetor(Integer idSetor) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		try {
 			st = conn.prepareStatement(
-				"SELECT linhaproduto.*, setor.desc_setor "
+				"SELECT linhaproduto.*, setor.descSetor "
 				+ "FROM linhaproduto INNER JOIN setor "
-				+ "ON linhaproduto.id_setor = setor.id_setor "
-				+ "WHERE linhaproduto.id_setor = ? "
+				+ "ON linhaproduto.idSetor = setor.idSetor "
+				+ "WHERE linhaproduto.idSetor = ? "
 				+ "ORDER BY linhaproduto.linha ");
 			
-				st.setInt(1,  id_setor);
+				st.setInt(1,  idSetor);
 				
 				rs = st.executeQuery();
 				
 				List<LinhaProduto> list = new ArrayList<>();
-				
 				
 				while (rs.next()) {
 	
@@ -178,15 +177,14 @@ public class LinhaProdutoDaoJDBC implements LinhaProdutoDao {
 		
 		try {
 			st = conn.prepareStatement(
-				"SELECT linhaproduto.*, setor.desc_setor "
+				"SELECT linhaproduto.*, setor.descSetor "
 				+ "FROM linhaproduto INNER JOIN setor "
-				+ "ON linhaproduto.id_setor = setor.id_setor "
+				+ "ON linhaproduto.idSetor = setor.idSetor "
 				+ "ORDER BY linhaproduto.linha ");
 
 				rs = st.executeQuery();
 				
 				List<LinhaProduto> list = new ArrayList<>();
-				
 				
 				while (rs.next()) {
 	
@@ -204,13 +202,12 @@ public class LinhaProdutoDaoJDBC implements LinhaProdutoDao {
 		
 	}
 
-	
 	private LinhaProduto instantiateLinhaProduto(ResultSet rs) throws SQLException {
 		LinhaProduto obj = new LinhaProduto();
-		obj.setid_linha(rs.getInt("id_linha"));
-		obj.setid_setor(rs.getInt("id_setor"));
-		obj.setlinha(rs.getString("linha"));
-		obj.setdesc_linha(rs.getString("desc_linha"));
+		obj.setIdLinha(rs.getInt("idLinha"));
+		obj.setIdSetor(rs.getInt("idSetor"));
+		obj.setLinha(rs.getString("linha"));
+		obj.setDescLinha(rs.getString("descLinha"));
 		return obj;
 	}
 
