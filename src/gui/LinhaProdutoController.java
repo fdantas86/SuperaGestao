@@ -1,18 +1,27 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.util.Alerts;
+import gui.util.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.LinhaProduto;
 import model.services.LinhaProdutoService;
@@ -48,8 +57,9 @@ public class LinhaProdutoController implements Initializable {
 	private ObservableList<LinhaProduto> obsList;
 	
 	@FXML
-	public void onBtnCadastrarAction() {
-		System.out.println("Cadastrar");
+	public void onBtnCadastrarAction(ActionEvent event) {
+		Stage parentStage = Utils.currentStage(event);
+		createDialogForm("/gui/LinhaProdutoForm.fxml", parentStage);
 	}
 	
 	@FXML
@@ -67,7 +77,7 @@ public class LinhaProdutoController implements Initializable {
 	}
 	
 	@Override
-	public void initialize(URL uri, ResourceBundle rb) {
+	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
 
 	}
@@ -89,6 +99,24 @@ public class LinhaProdutoController implements Initializable {
 		List<LinhaProduto> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewLinhaProduto.setItems(obsList);
+	}
+	
+	private void createDialogForm(String absoluteName, Stage parentStage) {
+		
+		try{
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			Pane pane = loader.load();
+			
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Dados da Linha do Produto");
+			dialogStage.setScene(new Scene(pane));
+			dialogStage.setResizable(false);
+			dialogStage.initOwner(parentStage);
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.showAndWait();
+		}catch(IOException e) {
+			Alerts.showAlert("Erro de Inserção", "Erro ao carregar página", e.getMessage(), AlertType.ERROR);
+		}
 	}
 
 }
