@@ -59,7 +59,8 @@ public class LinhaProdutoController implements Initializable {
 	@FXML
 	public void onBtnCadastrarAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/LinhaProdutoForm.fxml", parentStage);
+		LinhaProduto obj = new LinhaProduto();
+		createDialogForm(obj, "/gui/LinhaProdutoForm.fxml", parentStage);
 	}
 	
 	@FXML
@@ -101,11 +102,16 @@ public class LinhaProdutoController implements Initializable {
 		tableViewLinhaProduto.setItems(obsList);
 	}
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(LinhaProduto obj, String absoluteName, Stage parentStage) {
 		
 		try{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			LinhaProdutoFormController controller = loader.getController();
+			controller.setLinhaProduto(obj);
+			controller.setLinhaProdutoService(new LinhaProdutoService());
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Dados da Linha do Produto");
