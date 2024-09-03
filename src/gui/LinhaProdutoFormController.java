@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -22,6 +25,8 @@ public class LinhaProdutoFormController implements Initializable {
 	private LinhaProduto entidade;
 	
 	private LinhaProdutoService service;
+	
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
 	@FXML
 	private TextField txtIdLinha;
@@ -58,6 +63,10 @@ public class LinhaProdutoFormController implements Initializable {
 		this.service = service;
 	}
 	
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
+	}
+	
 	@FXML
 	public void onBtSalvarAction(ActionEvent event) {
 		if(entidade == null) {
@@ -71,13 +80,22 @@ public class LinhaProdutoFormController implements Initializable {
 			entidade = getFormData();
 			service.salvarOuAtualizar(entidade);
 			Utils.currentStage(event).close();
+			notifyDataChangeListeners();
+			
+			
 		}catch (DbException e){
 			Alerts.showAlert("Erro ao Salvar Registro", null, e.getMessage(), AlertType.ERROR);
 		}
 		
-		
 	}
 	
+	private void notifyDataChangeListeners() {
+		for (DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChanged();
+		}
+		
+	}
+
 	private LinhaProduto getFormData() {
 		LinhaProduto obj = new LinhaProduto();
 		obj.setIdLinha(Utils.tryParseToInt(txtIdLinha.getText()));

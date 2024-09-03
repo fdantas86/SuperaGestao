@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.LinhaProduto;
 import model.services.LinhaProdutoService;
 
-public class LinhaProdutoController implements Initializable {
+public class LinhaProdutoController implements Initializable, DataChangeListener {
 	
 	private LinhaProdutoService service;
 	
@@ -111,6 +112,7 @@ public class LinhaProdutoController implements Initializable {
 			LinhaProdutoFormController controller = loader.getController();
 			controller.setLinhaProduto(obj);
 			controller.setLinhaProdutoService(new LinhaProdutoService());
+			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
@@ -123,6 +125,12 @@ public class LinhaProdutoController implements Initializable {
 		}catch(IOException e) {
 			Alerts.showAlert("Erro de Inserção", "Erro ao carregar página", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+		
 	}
 
 }
