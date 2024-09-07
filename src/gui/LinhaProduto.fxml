@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="402.0" prefWidth="466.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LinhaProdutoController">
+<VBox prefHeight="508.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LinhaProdutoController">
    <children>
       <Label text="LINHAS DE PRODUTOS">
          <VBox.margin>
@@ -31,7 +31,9 @@
           <TableColumn fx:id="tableColumnIdlinha" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="tableColumnLinha" prefWidth="75.0" text="LINHA" />
             <TableColumn fx:id="tableColumnDescLinha" prefWidth="153.0" text="DESCRIÇÃO LINHA" />
-            <TableColumn fx:id="tableColumnIdSetor" minWidth="0.0" prefWidth="162.0" text="SETOR" />
+            <TableColumn fx:id="tableColumnIdSetor" minWidth="0.0" prefWidth="70.0" text="SETOR" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="75.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>
